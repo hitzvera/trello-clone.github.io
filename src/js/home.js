@@ -1,54 +1,117 @@
-import { baseUrl } from "./constant.js";
+import { baseUrl } from './constant.js';
 
-const usernameElm = document.getElementById("home-username");
-const logoutBtn = document.getElementById("logout-home");
+const usernameElm = document.getElementById('home-username');
+const logoutBtn = document.getElementById('logout-home');
 
-const containerTasks = document.getElementById("container-tasks");
+const containerTasks = document.getElementById('container-tasks');
 
-const openAdd = document.getElementById("open-add");
-const containerAdd = document.getElementById("container-add-area");
-const closeAddArea = document.getElementById("close-add-area");
-const editArea = document.getElementById("edit-area");
-const containerEditArea = document.getElementById("container-edit-area");
-const closeEditArea = document.getElementById("close-edit-area");
-const taskNameDetail = document.getElementById("task-name-detail");
-const createdatDetail = document.getElementById("createdat-detail");
-const startdateDetail = document.getElementById("startdate-detail");
-const enddateDetail = document.getElementById("enddate-detail");
-const descriptionDetail = document.getElementById("description-detail");
+const openAdd = document.getElementById('open-add');
+const containerAdd = document.getElementById('container-add-area');
+const closeAddArea = document.getElementById('close-add-area');
+const editArea = document.getElementById('edit-area');
+const addForm = document.getElementById('add-form');
+const containerEditArea = document.getElementById('container-edit-area');
+const closeEditArea = document.getElementById('close-edit-area');
+const taskNameDetail = document.getElementById('task-name-detail');
+const createdatDetail = document.getElementById('createdat-detail');
+const startdateDetail = document.getElementById('startdate-detail');
+const enddateDetail = document.getElementById('enddate-detail');
+const descriptionDetail = document.getElementById('description-detail');
+const deleteTaskElm = document.getElementById('delete-task');
+const editTaskElm = document.getElementById('edit-task');
+let taskId;
 
-const user = JSON.parse(localStorage.getItem("user"));
+const user = JSON.parse(localStorage.getItem('user'));
 if (user) {
   usernameElm.innerText = user.username;
 }
 
-logoutBtn.addEventListener("click", () => {
-  const confirmLogout = confirm("Are you sure you want to logout?");
+logoutBtn.addEventListener('click', () => {
+  const confirmLogout = confirm('Are you sure you want to logout?');
 
   if (confirmLogout) {
-    localStorage.removeItem("user");
-    window.location.href = "../../index.html";
+    localStorage.removeItem('user');
+    window.location.href = '../../index.html';
   }
 });
 
-openAdd.addEventListener("click", () => {
-    containerAdd.classList.remove("hidden");
-    containerAdd.classList.add("flex");
-})
+openAdd.addEventListener('click', () => {
+  containerAdd.classList.remove('hidden');
+  containerAdd.classList.add('flex');
+});
 
 fetchData();
 
 // Function to handle click events for cards task
 
-closeEditArea.addEventListener("click", () => {
-  containerEditArea.classList.add("hidden");
-  containerEditArea.classList.remove("flex");
+closeEditArea.addEventListener('click', () => {
+  containerEditArea.classList.add('hidden');
+  containerEditArea.classList.remove('flex');
 });
 
-closeAddArea.addEventListener("click", () => {
-  containerAdd.classList.add("hidden");
-  containerAdd.classList.remove("flex");
-})
+closeAddArea.addEventListener('click', () => {
+  containerAdd.classList.add('hidden');
+  containerAdd.classList.remove('flex');
+});
+
+addForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+
+  const taskName = document.getElementById('taskName').value;
+  const description = document.getElementById('description-add').value;
+  const startDate = document.getElementById('start-date').value;
+  const endDate = document.getElementById('end-date').value;
+
+  console.log(taskName, description, startDate, endDate);
+
+  addNewTask(taskName, description, startDate, endDate);
+});
+
+deleteTaskElm.addEventListener('click', async(e) => {
+  console.log(taskId)
+  try {
+    await deleteTasks(taskId);
+    location.reload();
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+async function deleteTasks(id) {
+  const response = await fetch(`${baseUrl}/users/${user.id}/tasks/${id}`, {
+    method: 'DELETE',
+  });
+  if (!response.ok) {
+    throw new Error('Failed to delete task');
+  }
+  location.reload();
+}
+
+async function addNewTask(taskName, description, startDate, endDate) {
+  const response = await fetch(`${baseUrl}/users/${user.id}/tasks`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      task_name: taskName,
+      description,
+      start_date: startDate,
+      end_date: endDate,
+    }),
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      console.log(data);
+      location.reload();
+    })
+    .catch((err) => {
+      console.log(err);
+      return [];
+    });
+}
 
 async function getAllTasks() {
   try {
@@ -68,53 +131,55 @@ async function fetchData() {
   try {
     const tasks = await getAllTasks();
     tasks.forEach((task) => {
-      const newFigure = document.createElement("figure");
-      const h2 = document.createElement("h2");
-      const p1 = document.createElement("p");
-      const p2 = document.createElement("p");
+      const newFigure = document.createElement('figure');
+      const h2 = document.createElement('h2');
+      const p1 = document.createElement('p');
+      const p2 = document.createElement('p');
       // styling for new task
       newFigure.classList.add(
-        "w-[300px]",
-        "bg-white",
-        "leading-none",
-        "rounded-md",
-        "px-2",
-        "py-2",
-        "hover:border-2",
-        "hover:border-black",
-        "card-task"
+        'w-[300px]',
+        'bg-white',
+        'leading-none',
+        'rounded-md',
+        'px-2',
+        'py-2',
+        'hover:border-2',
+        'hover:border-black',
+        'card-task'
       );
 
-      h2.classList.add("font-semibold", "text-lg");
-      p1.classList.add("text-[12px]");
+      h2.classList.add('font-semibold', 'text-lg');
+      p1.classList.add('text-[12px]');
       p2.classList.add(
-        "line-clamp-6",
-        "overflow-hidden",
-        "truncate",
-        "mt-4",
-        "mb-4",
-        "box-border"
+        'line-clamp-6',
+        'overflow-hidden',
+        'truncate',
+        'mt-4',
+        'mb-4',
+        'box-border'
       );
       h2.innerText = task.task_name;
-      p1.innerText = new Date(task.createdAt).toLocaleString();;
+      p1.innerText = new Date(task.createdAt).toLocaleString();
       p2.innerText = task.description;
       newFigure.appendChild(h2);
       newFigure.appendChild(p1);
       newFigure.appendChild(p2);
       containerTasks.appendChild(newFigure);
 
-      newFigure.addEventListener("click", () => {
-        containerEditArea.classList.remove("hidden");
-        containerEditArea.classList.add("flex");
+      newFigure.addEventListener('click', () => {
+        containerEditArea.classList.remove('hidden');
+        containerEditArea.classList.add('flex');
 
         taskNameDetail.innerText = task.task_name;
         createdatDetail.innerText = new Date(task.createdAt).toLocaleString();
-        startdateDetail.innerText = unixTimestampToReadableDate(task.start_date);
+        startdateDetail.innerText = unixTimestampToReadableDate(
+          task.start_date
+        );
         enddateDetail.innerText = unixTimestampToReadableDate(task.end_date);
         descriptionDetail.innerText = task.description;
+        taskId = task.id
       });
     });
-
   } catch (error) {
     console.error(error);
   }
