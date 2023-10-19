@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trello clone</title>
+
+    <link rel="stylesheet" href="../css/output.css" />
+    <!-- font awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <script src="../js/authorization.js"></script>
+  <body class="bg-gradient-to-r from-[#392196] to-[#DB499C]">
+    <!-- DETAIL ELEMENT -->
+    <div
+      id="container-edit-area"
+      class="hidden absolute top-0 bottom-0 left-0 right-0 bg-black/70 justify-center"
+    >
+      <div
+        id="edit-area"
+        class="bg-white w-[50%] h-[50%] mt-12 rounded-md relative pl-8 pr-4 pt-4"
+      >
+        <div class="h-[calc(100%-3rem)]">
+          <button class="absolute right-8" id="close-edit-area">
+            <i class="fa-solid fa-x"></i>
+          </button>
+
+          <div class="flex items-center relative w-fit">
+            <i class="fa-regular fa-credit-card absolute -left-6"></i>
+            <h2 class="font-semibold" id="task-name-detail">Task name</h2>
+          </div>
+          <p class="text-[12px] text-slate-500" id="createdat-detail">
+            created at
+          </p>
+          <div class="flex gap-2 mt-2">
+            <p class="bg-green-300 px-2 rounded-sm" id="startdate-detail">
+              start date
+            </p>
+            <p class="bg-red-300 px-2 rounded-sm" id="enddate-detail">
+              end date
+            </p>
+          </div>
+          <p
+            class="overflow-auto h-[calc(100%-6rem)] mt-4"
+            id="description-detail"
+          ></p>
+        </div>
+        <div class="h-2 bottom-8 left-6 absolute">
+          <button class="bg-blue-300 px-4 py-1 rounded-sm">Edit</button>
+          <button class="bg-red-300 px-4 py-1 rounded-sm">Delete</button>
+        </div>
+      </div>
+    </div>
+    <!-- EMD DETAIL ELEMENT -->
+    <!-- ADD TASK ELEMENT -->
+    <div
+      id="container-add-area"
+      class="absolute top-0 bottom-0 left-0 right-0 bg-black/70 justify-center"
+    >
+      <div
+        id="add-area"
+        class="bg-white w-[50%] h-fit mt-12 rounded-md relative pl-8 pr-4 pt-4 pb-4"
+      >
+        <button class="absolute right-8" id="close-add-area">
+          <i class="fa-solid fa-x"></i>
+        </button>
+        <form action="">
+          <div class="mb-4">
+            <label
+              class="block text-gray-700 text-sm font-bold mb-2"
+              for="taskName"
+            >
+              Task Name
+            </label>
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="taskName"
+              type="text"
+              placeholder="task name"
+            />
+          </div>
+          <div class="mb-4">
+            <label
+              class="block text-gray-700 text-sm font-bold mb-2"
+              for="taskName"
+            >
+              Description
+            </label>
+            <textarea
+              name="description-add"
+              id="description-add"
+              placeholder="description"
+              cols="30"
+              rows="10"
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            ></textarea>
+          </div>
+          <div class="mt-4 flex gap-4">
+            <div>
+              <h6 class="font-semibold">Start Date</h6>
+              <input type="date" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight"/>
+            </div>
+            <div>
+              <h6 class="font-semibold">Start Date</h6>
+              <input type="date" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight"/>
+            </div>
+          </div>
+          <div class="flex items-center justify-between mt-6">
+            <button
+              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              type="button"
+            >
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- END ADD TASK ELEMENT -->
+    <main class="mx-auto h-screen">
+      <nav class="w-full bg-black/30 px-8 h-12">
+        <div class="flex items-center justify-between h-full">
+          <div class="flex items-center">
+            <i class="fa-brands fa-trello text-white text-3xl mr-4"></i>
+            <h2 class="text-white font-bold text-2xl">Trella</h2>
+          </div>
+          <div class="flex items-center gap-4">
+            <span class="bg-white/20 py-1 rounded-md px-2">
+              <i class="fa-solid fa-magnifying-glass text-white text-md"></i>
+              <input
+                type="search"
+                placeholder="Search"
+                class="pl-1 rounded-sm self-stretch bg-transparent text-white placeholder-white focus:outline-none"
+              />
+            </span>
+
+            <i class="fa-regular fa-bell text-xl text-white"></i>
+            <i class="fa-regular fa-circle-question text-xl text-white"></i>
+          </div>
+          <div class="flex gap-4 items-center">
+            <button
+              class="bg-white/20 text-white rounded-md px-2 py-1"
+              id="logout-home"
+            >
+              Logout
+            </button>
+            <p
+              id="home-username"
+              class="text-white max-w-[200px] text-ellipsis overflow-hidden whitespace-nowrap"
+            >
+              Guest
+            </p>
+            <img
+              src="../images/default-avatar.jpg"
+              alt="profile image"
+              class="rounded-full w-8 h-8"
+            />
+          </div>
+        </div>
+      </nav>
+
+      <div class="h-[calc(100vh-4rem)] border-t-2 border-white/10">
+        <nav
+          class="flex justify-between items-center text-white bg-black/30 px-8 py-2"
+        >
+          <ul class="flex gap-4 items-center">
+            <li class="font-bold text-xl">Activity Management</li>
+            <li>
+              <button class="flex items-center gap-2">
+                <i class="fa-solid fa-grip text-white text-xl"></i> Board
+              </button>
+            </li>
+            <li class="hover:bg-white/10 hover:rounded-md px-2 py-1">
+              <button><i class="fa-solid fa-table"></i> Table</button>
+            </li>
+          </ul>
+          <button
+            class="flex items-center gap-2 bg-white/30 px-2 py-1 rounded-md"
+            id="open-add"
+          >
+            <i class="fa-solid fa-plus"></i>
+            <span>Add new task</span>
+          </button>
+        </nav>
+        <div class="p-4 flex gap-4 items-start" id="container-tasks"></div>
+      </div>
+    </main>
+
+    <script src="../js/home.js" type="module"></script>
+  </body>
+</html>

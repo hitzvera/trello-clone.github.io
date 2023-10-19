@@ -1,0 +1,7 @@
+POST https://652b9e0ad0d1df5273ee8851.mockapi.io/api/v1/users
+Content-Type: application/json
+
+{
+    "username":"mujahid1",
+    "password":"123"
+}

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trello clone</title>
+
+    <link rel="stylesheet" href="./src/css/output.css" />
+    <!-- font awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body class="bg-gradient-to-r from-[#392196] to-[#DB499C] h-screen">
+    <header class="bg-black/20 mx-auto">
+      <nav
+        class="flex items-center px-8 py-2 h-16 max-w-4xl mx-auto justify-between"
+      >
+        <div class="flex items-center">
+          <i class="fa-brands fa-trello text-white text-3xl mr-4"></i>
+          <h2 class="text-white text-2xl font-semibold">TRELLA</h2>
+        </div>
+        <ul class="flex gap-4">
+          <li><a href="#" class="text-white">Home</a></li>
+          <li><a href="#" class="text-white">About</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main
+      class="flex justify-center h-[calc(100vh-4rem)] w-full items-center mx-auto"
+    >
+      <div
+        class="flex justify-center items-center shadow-md rounded-md shadow-white"
+      >
+        <div
+          class="max-h-[600px] bg-slate-100 h-screen min-w-[400px] rounded-l-md flex flex-col items-center justify-center"
+        >
+          <img src="./src/images/productivity.png" alt="" class="" />
+          <h2 class="font-bold text-slate-500 text-lg text-center">
+            Make a better plan management with Trella
+          </h2>
+          <p class="text-slate-500">start your journey by joining us</p>
+        </div>
+        <div
+          class="w-full bg-white h-screen max-h-[600px] min-w-[400px] flex flex-col items-center px-8 py-8 rounded-r-md overflow-hidden"
+        >
+          <h2 class="font-bold font-poppins text-3xl mb-8">Login Form</h2>
+          <div class="flex w-full">
+            <button
+              class="flex-1 rounded-md bg-gradient-to-r from-[#392196] to-[#DB499C] text-white py-4 text-xl"
+              id="login-button-page"
+            >
+              Login
+            </button>
+            <button class="flex-1 rounded-md text-xl" id="signup-button-page">
+              Sign Up
+            </button>
+          </div>
+          <form
+            action=""
+            class="w-full mt-16 tracking-wider transition-all"
+            id="form-login"
+          >
+            <div class="relative">
+              <input
+                type="text"
+                placeholder=""
+                class="peer py-2 text-lg w-full border-b-4 focus:outline-none placeholder-transparent"
+                id="login-username"
+              />
+              <label
+                for="username"
+                class="font-semibold -top-4 absolute left-0 transition-all duration-500 peer-placeholder-shown:text-xl peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-4 peer-focus:text-base peer-focus:text-gray-600"
+              >
+                Username</label
+              >
+            </div>
+            <div class="relative mt-6">
+              <input
+                type="password"
+                placeholder=""
+                class="peer py-2 text-lg w-full border-b-4 focus:outline-none placeholder-transparent"
+                id="login-password"
+              />
+              <label
+                for="password"
+                class="font-semibold absolute -top-4 left-0 transition-all duration-500 text-gray-600 peer-placeholder-shown:text-xl peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-4 peer-focus:text-base peer-focus:text-gray-600"
+              >
+                Password</label
+              >
+            </div>
+            <p class="bg-red-500 px-4 py-1 mt-2 rounded-sm text-white hidden" id="login-error"></p>
+            <img class="h-8 w-8 mt-4 hidden" id="login-loading" src="https://icons8.com/preloaders/preloaders/1488/Iphone-spinner-2.gif" alt="">
+            <p class="place-items-start mt-4 text-red-400">Forgot Password?</p>
+            <button
+              class="w-full mt-4 rounded-md bg-gradient-to-r from-[#392196] to-[#DB499C] text-white py-4 text-xl"
+              type="submit"
+            >
+              Login
+            </button>
+            <p class="text-center mt-4">
+              Not a member yet? <a href="#" class="text-[#DB499C]">Sign Up</a>
+            </p>
+          </form>
+          <form
+            action=""
+            class="w-full mt-16 tracking-wider transition-all hidden"
+            id="form-register"
+          >
+            <div class="relative">
+              <input
+                type="text"
+                placeholder=""
+                id="register-username"
+                class="peer py-2 text-lg w-full border-b-4 focus:outline-none placeholder-transparent"
+              />
+              <label
+                for="username"
+                class="font-semibold -top-4 absolute left-0 transition-all duration-500 peer-placeholder-shown:text-xl peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-4 peer-focus:text-base peer-focus:text-gray-600"
+              >
+                Username</label
+              >
+            </div>
+            <div class="relative mt-6">
+              <input
+                type="password"
+                placeholder=""
+                id="register-password"
+                class="peer py-2 text-lg w-full border-b-4 focus:outline-none placeholder-transparent"
+              />
+              <label
+                for="password"
+                class="font-semibold absolute -top-4 left-0 transition-all duration-500 text-gray-600 peer-placeholder-shown:text-xl peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-4 peer-focus:text-base peer-focus:text-gray-600"
+              >
+                Password</label
+              >
+            </div>
+            <div class="relative mt-6">
+              <input
+                type="password"
+                placeholder=""
+                id="register-confirm-password"
+                class="peer py-2 text-lg w-full border-b-4 focus:outline-none placeholder-transparent"
+              />
+              <label
+                for="password"
+                class="font-semibold absolute -top-4 left-0 transition-all duration-500 text-gray-600 peer-placeholder-shown:text-xl peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-4 peer-focus:text-base peer-focus:text-gray-600"
+              >
+                Confirm Password</label
+              >
+            </div>
+             <p class="bg-red-500 px-4 py-1 mt-2 rounded-sm text-white hidden" id="register-error"></p>
+             <p class="bg-green-500 px-4 py-1 mt-2 rounded-sm text-white hidden" id="register-success">Berhasil</p>
+            <img class="h-8 w-8 mt-4 hidden" id="register-loading" src="https://icons8.com/preloaders/preloaders/1488/Iphone-spinner-2.gif" alt="">
+            <button
+              class="w-full mt-8 rounded-md bg-gradient-to-r from-[#392196] to-[#DB499C] text-white py-4 text-xl"
+              type="submit"
+            >
+              Register
+            </button>
+            <p class="text-center mt-4">
+              Already have an account?
+              <a href="#" class="text-[#DB499C]">Login</a>
+            </p>
+          </form>
+        </div>
+      </div>
+    </main>
+
+    <script src="./src/js/constant.js" type="module"></script>
+    <script src="./src/js/login.js" type="module"></script>
+    <script src="./src/js/register.js" type="module"></script>
+  </body>
+</html>
