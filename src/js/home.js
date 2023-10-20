@@ -1,6 +1,7 @@
 import { baseUrl } from "./constant.js";
 
 const usernameElm = document.getElementById("home-username");
+const imageProfileElm = document.getElementById("home-avatar");
 const logoutBtn = document.getElementById("logout-home");
 
 const containerTasks = document.getElementById("container-tasks");
@@ -32,6 +33,7 @@ let tasks = await init();
 
 if (user) {
   usernameElm.innerText = user.username;
+  imageProfileElm.src = user.image_url;
 }
 
 logoutBtn.addEventListener("click", () => {
