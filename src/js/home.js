@@ -11,6 +11,7 @@ const closeAddArea = document.getElementById("close-add-area");
 const detailArea = document.getElementById("detail-area");
 const editButton = document.getElementById("edit-task");
 const addForm = document.getElementById("add-form");
+const editForm = document.getElementById("edit-form");
 const containerDetailArea = document.getElementById("container-detail-area");
 const containerEditArea = document.getElementById("container-edit-area");
 const closeDetailArea = document.getElementById("close-detail-area");
@@ -79,6 +80,42 @@ addForm.addEventListener("submit", (e) => {
 
   addNewTask(taskName, description, startDate, endDate);
 });
+
+editForm.addEventListener("submit", async(e) => {
+  e.preventDefault();
+  const taskName = document.getElementById("taskName-edit").value;
+  const description = document.getElementById("description-edit").value;
+  const startDate = document.getElementById("start-date-edit").value;
+  const endDate = document.getElementById("end-date-edit").value;
+
+  loading(true)
+  await fetch(`${baseUrl}/users/${user.id}/tasks/${taskId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      task_name: taskName,
+      description,
+      start_date: startDate,
+      end_date: endDate,
+    }),
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      console.log(data);
+      location.reload();
+    })
+    .catch((err) => {
+      console.log(err);
+      return [];
+    })
+    .finally(() => {
+      loading(false);
+    })
+})
 
 // EDIT TASK ELEMENT
 editButton.addEventListener("click", async (e) => {
