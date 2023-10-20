@@ -8,10 +8,12 @@ const containerTasks = document.getElementById('container-tasks');
 const openAdd = document.getElementById('open-add');
 const containerAdd = document.getElementById('container-add-area');
 const closeAddArea = document.getElementById('close-add-area');
-const editArea = document.getElementById('edit-area');
+const detailArea = document.getElementById('detail-area');
+const editButton = document.getElementById('edit-task');
 const addForm = document.getElementById('add-form');
+const containerDetailArea = document.getElementById('container-detail-area');
 const containerEditArea = document.getElementById('container-edit-area');
-const closeEditArea = document.getElementById('close-edit-area');
+const closeEditArea = document.getElementById('close-detail-area');
 const taskNameDetail = document.getElementById('task-name-detail');
 const createdatDetail = document.getElementById('createdat-detail');
 const startdateDetail = document.getElementById('startdate-detail');
@@ -42,11 +44,9 @@ openAdd.addEventListener('click', () => {
 
 fetchData();
 
-// Function to handle click events for cards task
-
 closeEditArea.addEventListener('click', () => {
-  containerEditArea.classList.add('hidden');
-  containerEditArea.classList.remove('flex');
+  containerDetailArea.classList.add('hidden');
+  containerDetailArea.classList.remove('flex');
 });
 
 closeAddArea.addEventListener('click', () => {
@@ -66,6 +66,12 @@ addForm.addEventListener('submit', (e) => {
 
   addNewTask(taskName, description, startDate, endDate);
 });
+
+// EDIT TASK ELEMENT
+editButton.addEventListener('click', (e) => {
+  document.getElementById('container-edit-area').classList.remove('hidden')
+  document.getElementById('container-edit-area').classList.add('flex')
+})
 
 deleteTaskElm.addEventListener('click', async(e) => {
   console.log(taskId)
@@ -167,8 +173,8 @@ async function fetchData() {
       containerTasks.appendChild(newFigure);
 
       newFigure.addEventListener('click', () => {
-        containerEditArea.classList.remove('hidden');
-        containerEditArea.classList.add('flex');
+        containerDetailArea.classList.remove('hidden');
+        containerDetailArea.classList.add('flex');
 
         taskNameDetail.innerText = task.task_name;
         createdatDetail.innerText = new Date(task.createdAt).toLocaleString();
@@ -195,14 +201,14 @@ function unixTimestampToReadableDate(unixTimestamp) {
   return formattedDate;
 }
 // function handleClickOutside(event) {
-//   if (!containerEditArea.contains(event.target)) {
-//     containerEditArea.classList.add("hidden");
-//     containerEditArea.classList.remove("flex");
+//   if (!containerDetailArea.contains(event.target)) {
+//     containerDetailArea.classList.add("hidden");
+//     containerDetailArea.classList.remove("flex");
 //     document.removeEventListener("click", handleClickOutside); // Remove the listener once the white box is closed
 //   }
 // }
 
-// const isWhiteboxClosed = containerEditArea.classList.contains("hidden");
+// const isWhiteboxClosed = containerDetailArea.classList.contains("hidden");
 
 // if (!isWhiteboxClosed) {
 //   // Event listener to detect clicks outside the white box
