@@ -304,7 +304,7 @@ async function searchTasks(searchQuery) {
   } else {
     filteredTasks = filterTasks(searchQuery);
   }
-
+  
   renderTasks(filteredTasks);
 }
 

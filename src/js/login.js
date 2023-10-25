@@ -1,45 +1,32 @@
 import { baseUrl } from "./constant.js";
 
-const loginBtnPage = document.getElementById("login-button-page");
-const signupBtn = document.getElementById("signup-button-page");
+const loginBtnPage = document.querySelectorAll(".login-button-page");
+const signupBtn = document.querySelectorAll(".signup-button-page");
 const formLogin = document.getElementById("form-login");
+const signupLink = document.getElementById("signup-link");
+const loginLink = document.getElementById("login-link");
 const errorElm = document.getElementById("login-error");
 
-loginBtnPage.addEventListener("click", () => {
-  document.getElementById("form-login").classList.remove("hidden");
-  document.getElementById("form-register").classList.add("hidden");
+signupBtn.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    changeToRegister();
+  });
+})
 
-  loginBtnPage.classList.add(
-    "bg-gradient-to-r",
-    "from-[#392196]",
-    "to-[#DB499C]",
-    "text-white"
-  );
-  signupBtn.classList.remove(
-    "bg-gradient-to-r",
-    "from-[#392196]",
-    "to-[#DB499C]",
-    "text-white"
-  );
+loginBtnPage.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    changeTologin();
+  });
+})
+
+signupLink.addEventListener("click", () => {
+  changeToRegister();
 });
 
-signupBtn.addEventListener("click", () => {
-  document.getElementById("form-login").classList.add("hidden");
-  document.getElementById("form-register").classList.remove("hidden");
+loginLink.addEventListener("click", () => {
+  changeTologin();
+})
 
-  loginBtnPage.classList.remove(
-    "bg-gradient-to-r",
-    "from-[#392196]",
-    "to-[#DB499C]",
-    "text-white"
-  );
-  signupBtn.classList.add(
-    "bg-gradient-to-r",
-    "from-[#392196]",
-    "to-[#DB499C]",
-    "text-white"
-  );
-});
 
 formLogin.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -56,6 +43,53 @@ function loading(isLoading) {
   } else {
     document.getElementById("login-loading").classList.add("hidden");
   }
+}
+
+function changeTologin() {
+  document.getElementById("form-login").classList.remove("hidden");
+  document.getElementById("form-register").classList.add("hidden");
+
+  loginBtnPage.forEach((btn) => {
+    btn.classList.add(
+      "bg-gradient-to-r",
+      "from-[#392196]",
+      "to-[#DB499C]",
+      "text-white"
+    );
+  });
+
+  signupBtn.forEach((btn) => {
+    btn.classList.remove(
+      "bg-gradient-to-r",
+      "from-[#392196]",
+      "to-[#DB499C]",
+      "text-white"
+    );
+  });
+}
+
+function changeToRegister() {
+  document.getElementById("form-login").classList.add("hidden");
+  document.getElementById("form-register").classList.remove("hidden");
+
+  loginBtnPage.forEach((btn) => {
+    btn.classList.remove(
+      "bg-gradient-to-r",
+      "from-[#392196]",
+      "to-[#DB499C]",
+      "text-white"
+    );
+  })
+
+  signupBtn.forEach((btn) => {
+    btn.classList.add(
+      "bg-gradient-to-r",
+      "from-[#392196]",
+      "to-[#DB499C]",
+      "text-white"
+    );
+  })
+
 }
 
 async function login(username, password) {

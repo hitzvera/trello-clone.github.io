@@ -15,7 +15,7 @@
       referrerpolicy="no-referrer"
     />
   </head>
-  <body class="bg-gradient-to-r from-[#392196] to-[#DB499C] h-screen">
+  <body class="bg-gradient-to-r from-[#392196] to-[#DB499C]">
     <header class="bg-black/20 mx-auto">
       <nav
         class="flex items-center px-8 py-2 h-16 max-w-4xl mx-auto justify-between"
@@ -34,10 +34,10 @@
       class="flex justify-center h-[calc(100%)-4rem] w-full items-center mx-auto"
     >
       <div
-        class="flex justify-center items-center shadow-md rounded-md shadow-white"
+        class="flex md:flex-row flex-col md:p-0 p-2 gap-2 md:gap-0 justify-center items-center shadow-md rounded-md shadow-white max-w-4xl w-full"
       >
         <div
-          class="max-h-[600px] bg-slate-100 h-screen min-w-[400px] rounded-l-md flex flex-col items-center justify-center"
+          class="max-h-[600px] bg-slate-100 h-screen flex-1 md:rounded-l-md md:rounded-r-none rounded-md flex flex-col items-center justify-center w-full pb-8 md:pb-0"
         >
           <img src="./src/images/productivity.png" alt="" class="" />
           <h2 class="font-bold text-slate-500 text-lg text-center">
@@ -46,23 +46,24 @@
           <p class="text-slate-500">start your journey by joining us</p>
         </div>
         <div
-          class="w-full bg-white h-screen max-h-[600px] min-w-[400px] flex flex-col items-center px-8 py-8 rounded-r-md overflow-hidden"
+          class="w-full bg-white h-screen max-h-[600px] flex flex-1 flex-col items-center px-8 py-8 rounded-r-md overflow-hidden"
         >
           <h2 class="font-bold font-poppins text-3xl mb-8">Login Form</h2>
-          <div class="flex w-full">
+          <div
+            class="hidden md:flex w-full fixed bg-white z-10 bottom-0 left-0 right-0 md:static"
+          >
             <button
-              class="flex-1 rounded-md bg-gradient-to-r from-[#392196] to-[#DB499C] text-white py-4 text-xl"
-              id="login-button-page"
+              class="login-button-page flex-1 rounded-md bg-gradient-to-r from-[#392196] to-[#DB499C] text-white py-4 text-xl"
             >
               Login
             </button>
-            <button class="flex-1 rounded-md text-xl" id="signup-button-page">
+            <button class="flex-1 rounded-md text-xl signup-button-page">
               Sign Up
             </button>
           </div>
           <form
             action=""
-            class="w-full mt-16 tracking-wider transition-all"
+            class="w-full md:mt-16 tracking-wider transition-all"
             id="form-login"
           >
             <div class="relative">
@@ -93,8 +94,16 @@
                 Password</label
               >
             </div>
-            <p class="bg-red-500 px-4 py-1 mt-2 rounded-sm text-white hidden" id="login-error"></p>
-            <img class="h-8 w-8 mt-4 hidden" id="login-loading" src="https://icons8.com/preloaders/preloaders/1488/Iphone-spinner-2.gif" alt="">
+            <p
+              class="bg-red-500 px-4 py-1 mt-2 rounded-sm text-white hidden"
+              id="login-error"
+            ></p>
+            <img
+              class="h-8 w-8 mt-4 hidden"
+              id="login-loading"
+              src="https://icons8.com/preloaders/preloaders/1488/Iphone-spinner-2.gif"
+              alt=""
+            />
             <p class="place-items-start mt-4 text-red-400">Forgot Password?</p>
             <button
               class="w-full mt-4 rounded-md bg-gradient-to-r from-[#392196] to-[#DB499C] text-white py-4 text-xl"
@@ -103,7 +112,8 @@
               Login
             </button>
             <p class="text-center mt-4">
-              Not a member yet? <a href="#" class="text-[#DB499C]">Sign Up</a>
+              Not a member yet?
+              <a href="#" class="text-[#DB499C]" id="signup-link">Sign Up</a>
             </p>
           </form>
           <form
@@ -153,9 +163,22 @@
                 Confirm Password</label
               >
             </div>
-             <p class="bg-red-500 px-4 py-1 mt-2 rounded-sm text-white hidden" id="register-error"></p>
-             <p class="bg-green-500 px-4 py-1 mt-2 rounded-sm text-white hidden" id="register-success">Berhasil</p>
-            <img class="h-8 w-8 mt-4 hidden" id="register-loading" src="https://icons8.com/preloaders/preloaders/1488/Iphone-spinner-2.gif" alt="">
+            <p
+              class="bg-red-500 px-4 py-1 mt-2 rounded-sm text-white hidden"
+              id="register-error"
+            ></p>
+            <p
+              class="bg-green-500 px-4 py-1 mt-2 rounded-sm text-white hidden"
+              id="register-success"
+            >
+              Berhasil
+            </p>
+            <img
+              class="h-8 w-8 mt-4 hidden"
+              id="register-loading"
+              src="https://icons8.com/preloaders/preloaders/1488/Iphone-spinner-2.gif"
+              alt=""
+            />
             <button
               class="w-full mt-8 rounded-md bg-gradient-to-r from-[#392196] to-[#DB499C] text-white py-4 text-xl"
               type="submit"
@@ -164,12 +187,24 @@
             </button>
             <p class="text-center mt-4">
               Already have an account?
-              <a href="#" class="text-[#DB499C]">Login</a>
+              <a href="#" class="text-[#DB499C]" id="login-link">Login</a>
             </p>
           </form>
         </div>
       </div>
     </main>
+    <div
+      class="flex md:hidden w-full sticky bg-white z-10 bottom-0 left-0 right-0 md:static"
+    >
+      <button
+        class="login-button-page flex-1 rounded-md bg-gradient-to-r from-[#392196] to-[#DB499C] text-white py-4 text-xl"
+      >
+        Login
+      </button>
+      <button class="flex-1 rounded-md text-xl signup-button-page">
+        Sign Up
+      </button>
+    </div>
 
     <script src="./src/js/constant.js" type="module"></script>
     <script src="./src/js/login.js" type="module"></script>
