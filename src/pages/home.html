@@ -227,8 +227,8 @@
     <!-- END EDIT TASK -->
 
     <main class="mx-auto h-screen">
-      <nav class="w-full bg-black/30 px-8 h-12">
-        <div class="flex items-center justify-between h-full">
+      <nav class="w-full bg-black/30 px-8 md:h-12 py-2 md:py-0">
+        <div class="flex items-center justify-between h-full flex-col md:flex-row gap-4 md:gap-0">
           <div class="flex items-center">
             <i class="fa-brands fa-trello text-white text-3xl mr-4"></i>
             <h2 class="text-white font-bold text-2xl">Trella</h2>
@@ -272,16 +272,16 @@
 
       <div class="h-[calc(100vh-4rem)] border-t-2 border-white/10">
         <nav
-          class="flex justify-between items-center text-white bg-black/30 px-8 py-2"
+          class="flex justify-between items-center text-white bg-black/30 px-8 py-2 md:flex-row flex-col gap-2"
         >
           <ul class="flex gap-4 items-center">
             <li class="font-bold text-xl">Activity Management</li>
-            <li>
+            <li class="hover:bg-white/10 hover:rounded-md px-2 py-1" id="board-view-button">
               <button class="flex items-center gap-2">
                 <i class="fa-solid fa-grip text-white text-xl"></i> Board
               </button>
             </li>
-            <li class="hover:bg-white/10 hover:rounded-md px-2 py-1">
+            <li class="hover:bg-white/10 hover:rounded-md px-2 py-1" id="table-view-button">
               <button><i class="fa-solid fa-table"></i> Table</button>
             </li>
           </ul>
@@ -297,6 +297,7 @@
           class="p-4 flex gap-4 items-start overflow-auto flex-wrap"
           id="container-tasks"
         ></div>
+        <div id="containerTable" class="p-4"></div>
       </div>
     </main>
 

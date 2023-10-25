@@ -5,11 +5,14 @@ const imageProfileElm = document.getElementById("home-avatar");
 const logoutBtn = document.getElementById("logout-home");
 
 const containerTasks = document.getElementById("container-tasks");
+const containerTable = document.getElementById("containerTable");
+
+const boardViewButton = document.getElementById("board-view-button");
+const tableViewButton = document.getElementById("table-view-button");
 
 const openAdd = document.getElementById("open-add");
 const containerAdd = document.getElementById("container-add-area");
 const closeAddArea = document.getElementById("close-add-area");
-const detailArea = document.getElementById("detail-area");
 const editButton = document.getElementById("edit-task");
 const addForm = document.getElementById("add-form");
 const editForm = document.getElementById("edit-form");
@@ -23,13 +26,12 @@ const startdateDetail = document.getElementById("startdate-detail");
 const enddateDetail = document.getElementById("enddate-detail");
 const descriptionDetail = document.getElementById("description-detail");
 const deleteTaskElm = document.getElementById("delete-task");
-const editTaskElm = document.getElementById("edit-task");
 const searchInput = document.getElementById("search-input");
 const user = JSON.parse(localStorage.getItem("user"));
 
+let isBoardView = true;
 let taskId;
 let tasks = await init();
-
 
 if (user) {
   usernameElm.innerText = user.username;
@@ -45,11 +47,20 @@ logoutBtn.addEventListener("click", () => {
   }
 });
 
+boardViewButton.addEventListener("click", () => {
+  isBoardView = true;
+  init();
+});
+
+tableViewButton.addEventListener("click", () => {
+  isBoardView = false;
+  init();
+});
+
 openAdd.addEventListener("click", () => {
   containerAdd.classList.remove("hidden");
   containerAdd.classList.add("flex");
 });
-
 
 closeDetailArea.addEventListener("click", () => {
   containerDetailArea.classList.add("hidden");
@@ -69,8 +80,7 @@ closeEditArea.addEventListener("click", () => {
 searchInput.addEventListener("keyup", (e) => {
   const searchQuery = e.target.value;
   searchTasks(searchQuery);
-})
-
+});
 
 addForm.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -80,17 +90,18 @@ addForm.addEventListener("submit", (e) => {
   const startDate = document.getElementById("start-date").value;
   const endDate = document.getElementById("end-date").value;
 
+
   addNewTask(taskName, description, startDate, endDate);
 });
 
-editForm.addEventListener("submit", async(e) => {
+editForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   const taskName = document.getElementById("taskName-edit").value;
   const description = document.getElementById("description-edit").value;
   const startDate = document.getElementById("start-date-edit").value;
   const endDate = document.getElementById("end-date-edit").value;
 
-  loading(true)
+  loading(true);
   await fetch(`${baseUrl}/users/${user.id}/tasks/${taskId}`, {
     method: "PUT",
     headers: {
@@ -107,7 +118,6 @@ editForm.addEventListener("submit", async(e) => {
       return res.json();
     })
     .then((data) => {
-      console.log(data);
       location.reload();
     })
     .catch((err) => {
@@ -116,8 +126,8 @@ editForm.addEventListener("submit", async(e) => {
     })
     .finally(() => {
       loading(false);
-    })
-})
+    });
+});
 
 // EDIT TASK ELEMENT
 editButton.addEventListener("click", async (e) => {
@@ -181,14 +191,13 @@ async function addNewTask(taskName, description, startDate, endDate) {
       task_name: taskName,
       description,
       start_date: startDate,
-      end_date: endDate,
+      end_date: endDate
     }),
   })
     .then((res) => {
       return res.json();
     })
     .then((data) => {
-      console.log(data);
       location.reload();
     })
     .catch((err) => {
@@ -227,7 +236,11 @@ async function getAllTasks() {
 async function init() {
   try {
     const tasks = await fetchData();
-    renderTasks(tasks);
+    if (isBoardView) {
+      renderTasksBoard(tasks);
+    } else {
+      rednerTasksTable(tasks);
+    }
     return tasks;
   } catch (error) {
     console.error(error);
@@ -249,9 +262,9 @@ function filterTasks(searchQuery) {
   });
 }
 
-function renderTasks(tasks) {
-
+function renderTasksBoard(tasks) {
   containerTasks.innerHTML = "";
+  containerTable.innerHTML = "";
 
   tasks.forEach((task) => {
     const newFigure = document.createElement("figure");
@@ -269,7 +282,8 @@ function renderTasks(tasks) {
       "py-2",
       "hover:border-2",
       "hover:border-black",
-      "card-task"
+      "card-task",
+      "cursor-pointer"
     );
 
     h2.classList.add("font-semibold", "text-lg");
@@ -289,12 +303,86 @@ function renderTasks(tasks) {
 
       taskNameDetail.innerText = task.task_name;
       createdatDetail.innerText = new Date(task.createdAt).toLocaleString();
-      startdateDetail.innerText = unixTimestampToReadableDate(task.start_date);
-      enddateDetail.innerText = unixTimestampToReadableDate(task.end_date);
+      startdateDetail.innerText = unixTimestampToReadableDate(task.start_date) === "Invalid Date" ? task.start_date : unixTimestampToReadableDate(task.start_date);
+      enddateDetail.innerText = unixTimestampToReadableDate(task.end_date) === "Invalid Date" ? task.end_date : unixTimestampToReadableDate(task.end_date);
       descriptionDetail.innerText = task.description;
       taskId = task.id;
     });
   });
+}
+
+function rednerTasksTable(tasks) {
+  containerTable.innerHTML = "";
+  containerTasks.innerHTML = "";
+
+  // Create a table element and define its structure
+  const table = document.createElement("table");
+  table.classList.add("border-collapse", "w-full");
+
+  // Create a table header row
+  const tableHeader = document.createElement("tr");
+  tableHeader.classList.add("bg-gray-200", "border-b", "border-gray-400");
+
+  const tableHeaderColumns = [
+    "Task Name",
+    "Created At",
+    "Start Date",
+    "End Date",
+    "Description",
+  ];
+
+  tableHeaderColumns.forEach((headerText) => {
+    const th = document.createElement("th");
+    th.classList.add("p-2", "text-left");
+    th.innerText = headerText;
+    tableHeader.appendChild(th);
+  });
+
+  table.appendChild(tableHeader);
+
+  tasks.forEach((task) => {
+    const row = document.createElement("tr");
+    row.classList.add(
+      "border-b",
+      "border-gray-400",
+      "bg-white",
+      "cursor-pointer"
+    );
+
+    const taskNameCell = document.createElement("td");
+    const createdAtCell = document.createElement("td");
+    const startDateCell = document.createElement("td");
+    const endDateCell = document.createElement("td");
+    const descriptionCell = document.createElement("td");
+
+    taskNameCell.innerText = task.task_name;
+    createdAtCell.innerText = new Date(task.createdAt).toLocaleString();
+    startDateCell.innerText = unixTimestampToReadableDate(task.start_date) === "Invalid Date" ? task.start_date : unixTimestampToReadableDate(task.start_date);
+    endDateCell.innerText = unixTimestampToReadableDate(task.end_date) === "Invalid Date" ? task.end_date : unixTimestampToReadableDate(task.end_date);
+    descriptionCell.innerText = task.description;
+
+    row.appendChild(taskNameCell);
+    row.appendChild(createdAtCell);
+    row.appendChild(startDateCell);
+    row.appendChild(endDateCell);
+    row.appendChild(descriptionCell);
+
+    // Add a click event to handle task details just like before
+    row.addEventListener("click", () => {
+      containerDetailArea.classList.remove("hidden");
+      containerDetailArea.classList.add("flex");
+
+      taskNameDetail.innerText = task.task_name;
+      createdatDetail.innerText = new Date(task.createdAt).toLocaleString();
+      startdateDetail.innerText = unixTimestampToReadableDate(task.start_date) === "Invalid Date" ? task.start_date : unixTimestampToReadableDate(task.start_date);
+      enddateDetail.innerText = unixTimestampToReadableDate(task.end_date) === "Invalid Date" ? task.end_date : unixTimestampToReadableDate(task.end_date);
+      descriptionDetail.innerText = task.description;
+      taskId = task.id;
+    });
+    table.appendChild(row);
+  });
+
+  containerTable.appendChild(table);
 }
 async function searchTasks(searchQuery) {
   let filteredTasks;
@@ -304,8 +392,8 @@ async function searchTasks(searchQuery) {
   } else {
     filteredTasks = filterTasks(searchQuery);
   }
-  
-  renderTasks(filteredTasks);
+
+  renderTasksBoard(filteredTasks);
 }
 
 function unixTimestampToReadableDate(unixTimestamp) {
