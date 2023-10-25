@@ -604,6 +604,10 @@ video {
   bottom: -2rem;
 }
 
+.-bottom-\[2000px\]{
+  bottom: -2000px;
+}
+
 .z-10{
   z-index: 10;
 }
@@ -1277,8 +1281,130 @@ video {
   clip: rect(0,0,0,0) !important;
 }
 
+.before\:inline-block::before{
+  content: var(--tw-content);
+  display: inline-block;
+}
+
+.before\:inline::before{
+  content: var(--tw-content);
+  display: inline;
+}
+
+.before\:w-1::before{
+  content: var(--tw-content);
+  width: 0.25rem;
+}
+
+.before\:bg-red-500::before{
+  content: var(--tw-content);
+  --tw-bg-opacity: 1;
+  background-color: rgb(239 68 68 / var(--tw-bg-opacity));
+}
+
+.before\:content-\[\'\'\]::before{
+  --tw-content: '';
+  content: var(--tw-content);
+}
+
+.before\:content-\[\'a\'\]::before{
+  --tw-content: 'a';
+  content: var(--tw-content);
+}
+
+.after\:ml-0::after{
+  content: var(--tw-content);
+  margin-left: 0px;
+}
+
+.after\:ml-0\.5::after{
+  content: var(--tw-content);
+  margin-left: 0.125rem;
+}
+
+.after\:w-1::after{
+  content: var(--tw-content);
+  width: 0.25rem;
+}
+
+.after\:bg-blue-500::after{
+  content: var(--tw-content);
+  --tw-bg-opacity: 1;
+  background-color: rgb(59 130 246 / var(--tw-bg-opacity));
+}
+
+.after\:text-red-500::after{
+  content: var(--tw-content);
+  --tw-text-opacity: 1;
+  color: rgb(239 68 68 / var(--tw-text-opacity));
+}
+
+.after\:content-\[\]::after{
+  --tw-content: ;
+  content: var(--tw-content);
+}
+
+.after\:content-\[\'\'\]::after{
+  --tw-content: '';
+  content: var(--tw-content);
+}
+
+.after\:content-\[\'\*\'\]::after{
+  --tw-content: '*';
+  content: var(--tw-content);
+}
+
+.after\:content-\[\'a\'\]::after{
+  --tw-content: 'a';
+  content: var(--tw-content);
+}
+
+.after\:content-\[\'aaiwodj\'\]::after{
+  --tw-content: 'aaiwodj';
+  content: var(--tw-content);
+}
+
+.after\:content-\[\'not\'\]::after{
+  --tw-content: 'not';
+  content: var(--tw-content);
+}
+
+.after\:content-\[\'notavailableyet\'\]::after{
+  --tw-content: 'notavailableyet';
+  content: var(--tw-content);
+}
+
+.before\:after\:w-1::after::before{
+  content: var(--tw-content);
+  width: 0.25rem;
+}
+
 .hover\:visible:hover{
   visibility: visible;
+}
+
+.hover\:static:hover{
+  position: static;
+}
+
+.hover\:absolute:hover{
+  position: absolute;
+}
+
+.hover\:-bottom-8:hover{
+  bottom: -2rem;
+}
+
+.hover\:block:hover{
+  display: block;
+}
+
+.hover\:flex:hover{
+  display: flex;
+}
+
+.hover\:hidden:hover{
+  display: none;
 }
 
 .hover\:rounded-md:hover{

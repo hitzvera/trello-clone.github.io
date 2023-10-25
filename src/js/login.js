@@ -7,6 +7,26 @@ const signupLink = document.getElementById("signup-link");
 const loginLink = document.getElementById("login-link");
 const errorElm = document.getElementById("login-error");
 
+const navItems = document.querySelectorAll('.nav-item');
+const homeDescription = document.getElementById("home-description");
+const aboutDescription = document.getElementById("about-description");
+
+navItems[0].addEventListener("mouseover", () => {
+  homeDescription.classList.remove("hidden");
+})
+
+navItems[0].addEventListener("mouseout", () => {
+  homeDescription.classList.add("hidden");
+})
+
+navItems[1].addEventListener("mouseover", () => {
+  aboutDescription.classList.remove("hidden");
+})
+
+navItems[1].addEventListener("mouseout", () => {
+  aboutDescription.classList.add("hidden");
+})
+
 signupBtn.forEach((btn) => {
   btn.addEventListener("click", () => {
     changeToRegister();
