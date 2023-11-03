@@ -18,4 +18,8 @@ Jumat, 20 Oktober 2023 pukul 09.00 WIB
 Project Idea
 I am thinking of Trello clone. but obviously mine is not near with the real one. but Trello is a good idea for implementing javascript material.
 
+## Link deployment
+
+[Link deployment here](https://hitzvera.github.io/trello-clone.github.io/)
+
 
